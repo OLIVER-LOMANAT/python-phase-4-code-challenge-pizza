@@ -124,7 +124,7 @@ class TestApp:
             db.session.add(restaurant)
             db.session.commit()
 
-            # delete if existing in case price differs
+            
             restaurant_pizza = RestaurantPizza.query.filter_by(
                 pizza_id=pizza.id, restaurant_id=restaurant.id).one_or_none()
             if restaurant_pizza:
@@ -165,7 +165,7 @@ class TestApp:
             db.session.add(restaurant)
             db.session.commit()
 
-            # price not in 1..30
+            
             response = app.test_client().post(
                 '/restaurant_pizzas',
                 json={
@@ -176,7 +176,6 @@ class TestApp:
             )
 
             assert response.status_code == 400
-            # Updated to match the actual error message from your implementation
             assert response.json['errors'] == ["Price must be between 1 and 30"]
 
             response = app.test_client().post(
@@ -189,5 +188,5 @@ class TestApp:
             )
 
             assert response.status_code == 400
-            # Updated to match the actual error message from your implementation
+            
             assert response.json['errors'] == ["Price must be between 1 and 30"]
